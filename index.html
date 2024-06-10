@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .plus-one {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgb(19, 14, 14);
+            font-size: 1.5em;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease-out, top 0.5s ease-out;
+            margin-top: 70px;
+        }
+        .plus-one.show {
+            opacity: 1;
+            top: -40px;
+        }
+        .search {
+            position: absolute;
+            display: inline-block;
+        }
+        #coin-img {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 300px; /* Set width to 350px */
+            height: auto; /* Maintain aspect ratio */
+            outline: none; /* Remove outline */
+            -webkit-tap-highlight-color: transparent; /* Remove blue highlight on tap */
+            -webkit-touch-callout: none; /* Disable callout on long press (iOS) */
+        }
+        #coin-img:focus,
+        #coin-img:active {
+            outline: none; /* Ensure no outline on focus or active */
+        }
+        #coin-img:active {
+            transform: scale(0.9);
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .multiple {
+            width: 330px; /* Set width to 330px */
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 300px;
+            
+        }
+        .hidden {
+            display: none; /* Hide element */
+        }
+        .back-button {
+            font-size: 24px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            #coin-img {
+                width: 100%; /* Make image responsive for small screens */
+            }
+            .score {
+                font-size: 1.2em;
+            }
+            
+            /* .multiple {
+                width: 100%; /* Adjust width for small screens */
+                /* margin-top: 10px; Adjust margin for small screens */
+            /* } */ 
+        }
+
+        *{
+    margin: 0;
+    padding:0;
+    font-family: "Poppins", "sans-serif";
+    box-sizing: border-box;
+
+}
+
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+
+.card {
+    width: 90%;
+    max-width: 650px;
+    width: 420px;
+    /* background: linear-gradient(135deg, #00feba, #5b548a); */
+    /* background: linear-gradient(135deg, rgb(207, 109, 212), #f79253); */
+    background: linear-gradient(135deg, #f8f5f5, #0e0e0e);
+    color: #fff;
+    /* margin: 100px auto 0; */
+    /* border-radius: 20px; */
+    padding: 40px 35px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 790px;
+    position: relative;
+    /* margin-left: 510px; */
+    
+    
+
+
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    margin-right: 200px;
+    
+
+}
+/* 
+.search input{
+    border: 0;
+    outline: 0;
+    background: #ebfffc;
+    color: #555;
+    padding: 10px 25px;
+    height: 60px;
+    border-radius: 30px;
+    flex: 1;
+    margin-right: 16px;
+    font-size: 18px;
+    
+} */
+
+
+
+
+
+.quit-button {
+    width: 70px;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    background: linear-gradient(135deg, rgb(107, 29, 216), #c4108e);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    margin-right: 80px;
+    font-size: 1.4em;
+    margin-top: 5px;
+    margin-left: 5px;
+    
+}
+
+.friends {
+    width: 70px;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    background: linear-gradient(135deg, rgb(107, 29, 216), #c4108e);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    
+    font-size: 1.4em;
+    
+    margin-right: 70px;
+    margin-top: 5px;
+
+}
+
+.earn {
+    width: 70px;
+    height: 50px;
+    border-radius: 50px;
+    outline: none;
+    background: linear-gradient(135deg, rgb(107, 29, 216), #c4108e);
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    
+    font-size: 1.4em;
+    margin-top: 5px;
+    margin-right: 5px;
+    
+}
+
+.multiple {
+    width: 450px;
+    height: 60px;
+    width: 100%;
+    background: linear-gradient(15deg, #42413f, #111204);
+    
+    border-radius: 30px;
+    position: absolute;
+    margin-top: 610px;
+    display: flex;
+    /* margin-right: 5px; */
+    right:3px;
+    
+    
+    
+
+
+}
+    </style>
+</head>
+<body>
+    <div class="card" id="main-card">
+        <div class="score" id="score"></div>
+        <div class="search">
+            <img id="coin-img" src="360_F_471070917_ilZTVG8nmJr95lnUAh619a4n8rFqRLMg-removebg-preview (1).png" alt="Coin Image">
+        </div>
+        
+        <div class="multiple">
+            <button class="quit-button" id="quit-button">💰</button>
+            <button class="friends" id="friends-button">🙋‍♂️</button>
+            <button class="earn">🚀</button>
+        </div>  
+    </div>
+    <div class="card hidden" id="friends-card">
+        <button class="back-button" id="back-button">🔙 Back</button>
+    </div>
+    <script>
+        // Load score from localStorage
+        let score = localStorage.getItem('score') ? parseInt(localStorage.getItem('score')) : 0;
+        document.getElementById('score').textContent = ' ' + score;
+
+        document.getElementById('coin-img').addEventListener('click', function() {
+            // Increment score
+            score++;
+            document.getElementById('score').textContent = '' + score;
+
+            // Save score to localStorage
+            localStorage.setItem('score', score);
+
+            // Create and animate +1
+            var plusOne = document.createElement('div');
+            plusOne.className = 'plus-one';
+            plusOne.textContent = '+1';
+            this.parentElement.appendChild(plusOne);
+
+            // Trigger reflow to ensure the animation will run
+            plusOne.offsetWidth;
+
+            // Add the show class to animate
+            plusOne.classList.add('show');
+
+            // Remove the element after animation is done
+            plusOne.addEventListener('transitionend', function() {
+                plusOne.remove();
+            });
+        });
+
+        document.getElementById('quit-button').addEventListener('click', function() {
+            // Reset score
+            // score = 0;
+            // document.getElementById('score').textContent = 'Score: ' + score;
+
+            // Clear score from localStorage
+            // localStorage.setItem('score', score);
+        });
+
+        // Show friends card and hide main card
+        document.getElementById('friends-button').addEventListener('click', function() {
+            document.getElementById('main-card').classList.add('hidden');
+            document.getElementById('friends-card').classList.remove('hidden');
+        });
+
+        // Show main card and hide friends card
+        document.getElementById('back-button').addEventListener('click', function() {
+            document.getElementById('main-card').classList.remove('hidden');
+            document.getElementById('friends-card').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
